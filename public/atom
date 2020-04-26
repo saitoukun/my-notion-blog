@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <feed xmlns="http://www.w3.org/2005/Atom">
+    <title>My Blog</title>
+    <subtitle>Blog</subtitle>
+    <link href="/atom" rel="self" type="application/rss+xml"/>
+    <link href="/" />
+    <updated>2020-04-26T07:11:35.135Z</updated>
+    <id>My Notion Blog</id>
+    <entry>
+      <id>/blog/notion-blog</id>
+      <title>test</title>
+      <link href="/blog/notion-blog"/>
+      <updated>2020-01-31T15:00:00.533Z</updated>
+      <content type="xhtml">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          
+          <p class="more">
+            <a href="/blog/notion-blog">Read more</a>
+          </p>
+        </div>
+      </content>
+      <author><name>ぺい よっ</name></author>
+    </entry>
+    <entry>
+      <id>/blog/notion-blog2</id>
+      <title>Notion-blogをはじめる手順</title>
+      <link href="/blog/notion-blog2"/>
+      <updated>2020-01-31T15:00:00.533Z</updated>
+      <content type="xhtml">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          
+          <p class="more">
+            <a href="/blog/notion-blog2">Read more</a>
+          </p>
+        </div>
+      </content>
+      <author><name>ぺい よっ</name></author>
+    </entry>
+    <entry>
+      <id>/blog/aaa</id>
+      <title>Notion-blog参考</title>
+      <link href="/blog/aaa"/>
+      <updated>2020-01-31T15:00:00.534Z</updated>
+      <content type="xhtml">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          
+          <p class="more">
+            <a href="/blog/aaa">Read more</a>
+          </p>
+        </div>
+      </content>
+      <author><name>ぺい よっ</name></author>
+    </entry>
+  </feed>

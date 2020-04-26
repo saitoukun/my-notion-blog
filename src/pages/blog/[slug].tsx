@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Header from '../../components/header'
 import Heading from '../../components/heading'
 import components from '../../components/dynamic'
+import ExtLink from '../../components/ext-link'
 import ReactJSXParser from '@zeit/react-jsx-parser'
 import blogStyles from '../../styles/blog.module.css'
 import { textBlock } from '../../lib/notion/renderers'
@@ -83,6 +84,7 @@ export async function getStaticPaths() {
 
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
+//notionのpageをブログに変換する
 const RenderPost = ({ post, redirect, preview }) => {
   const router = useRouter()
 
@@ -230,6 +232,21 @@ const RenderPost = ({ post, redirect, preview }) => {
 
           switch (type) {
             case 'page':
+            case 'bookmark':
+              if (properties) {
+                toRender.push(
+                  <ExtLink
+                    key={id}
+                    href={properties.link}
+                    className="dotted"
+                    style={{ color: 'inherit' }}
+                  >
+                    {properties.title}
+                  </ExtLink>
+                )
+              }
+              break
+
             case 'divider':
               break
             case 'text':
