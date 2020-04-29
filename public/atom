@@ -4,48 +4,48 @@
     <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
-    <updated>2020-04-26T07:11:35.135Z</updated>
+    <updated>2020-04-29T07:43:15.449Z</updated>
     <id>My Notion Blog</id>
     <entry>
-      <id>/blog/notion-blog</id>
-      <title>test</title>
-      <link href="/blog/notion-blog"/>
-      <updated>2020-01-31T15:00:00.533Z</updated>
+      <id>/blog/notion-blog-link</id>
+      <title>Notion-blog参考にしたリンクなど</title>
+      <link href="/blog/notion-blog-link"/>
+      <updated>2020-01-31T15:00:00.579Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
           <p class="more">
-            <a href="/blog/notion-blog">Read more</a>
+            <a href="/blog/notion-blog-link">Read more</a>
           </p>
         </div>
       </content>
       <author><name>ぺい よっ</name></author>
     </entry>
     <entry>
-      <id>/blog/notion-blog2</id>
-      <title>Notion-blogをはじめる手順</title>
-      <link href="/blog/notion-blog2"/>
-      <updated>2020-01-31T15:00:00.533Z</updated>
+      <id>/blog/start</id>
+      <title>Notion-blogの手順とその問題</title>
+      <link href="/blog/start"/>
+      <updated>2020-01-31T15:00:00.579Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
           <p class="more">
-            <a href="/blog/notion-blog2">Read more</a>
+            <a href="/blog/start">Read more</a>
           </p>
         </div>
       </content>
       <author><name>ぺい よっ</name></author>
     </entry>
     <entry>
-      <id>/blog/aaa</id>
-      <title>Notion-blog参考</title>
-      <link href="/blog/aaa"/>
-      <updated>2020-01-31T15:00:00.534Z</updated>
+      <id>/blog/domain</id>
+      <title>Notion-blogのサブドメインをさくっと変更</title>
+      <link href="/blog/domain"/>
+      <updated>2020-04-25T15:00:00.579Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
           <p class="more">
-            <a href="/blog/aaa">Read more</a>
+            <a href="/blog/domain">Read more</a>
           </p>
         </div>
       </content>

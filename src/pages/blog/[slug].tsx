@@ -222,6 +222,7 @@ const RenderPost = ({ post, redirect, preview }) => {
             listTagName = null
           }
 
+          //Typeごとに変換する
           const renderHeading = (Type: string | React.ComponentType) => {
             toRender.push(
               <Heading key={id}>
