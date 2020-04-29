@@ -1,6 +1,5 @@
 import '../styles/global.css'
 import Twitter from '../components/svgs/twitter'
-import contactStyles from '../styles/contact.module.css'
 import ExtLink from '../components/ext-link'
 
 const contacts = [
