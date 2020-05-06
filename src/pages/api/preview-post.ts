@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
-  const postData = await getPageData(post.id)
+  const postData = await getPageData(post)
 
   if (!postData) {
     return res.status(401).json({ message: 'Invalid slug' })
