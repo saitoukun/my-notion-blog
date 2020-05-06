@@ -84,6 +84,15 @@ export default async function loadTable(collectionBlock: any, isPosts = false) {
       if (typeof val === 'string') {
         val = val.trim()
       }
+
+      //チェックするとPublishedがYesになる
+      if (schema[key].name === 'Published') {
+        if (val === 'Yes') {
+          val = true
+        } else {
+          val = false
+        }
+      }
       row[schema[key].name] = val || null
     })
 

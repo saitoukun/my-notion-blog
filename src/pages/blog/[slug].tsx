@@ -13,16 +13,17 @@ import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import getNotionUsers from '../../lib/notion/getNotionUsers'
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers'
+import { post } from '../../types/post'
 
 // Get the data for each blog post
+//ここでpost.contentを代入している
 export async function getStaticProps({ params: { slug }, preview }) {
   // load the postsTable so that we can get the page's ID
   const postsTable = await getBlogIndex()
   const post = postsTable[slug]
-
   // if we can't find the post or if it is unpublished and
   // viewed without preview mode then we just redirect to /blog
-  if (!post || (post.Published !== 'Yes' && !preview)) {
+  if (!post || (!post.Published && !preview)) {
     console.log(`Failed to find post for slug: ${slug}`)
     return {
       props: {
