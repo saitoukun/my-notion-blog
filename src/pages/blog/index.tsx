@@ -18,7 +18,7 @@ export async function getStaticProps({ preview }) {
     .map(slug => {
       const post = postsTable[slug]
       // remove draft posts in production
-      if (!preview && post.isPublished) {
+      if (!preview && !post.Published) {
         return null
       }
       post.Authors = post.Authors || []
