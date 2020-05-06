@@ -2,16 +2,9 @@ export const getBlogLink = (slug: string) => {
   return `/blog/${slug}`
 }
 
+// YYYY/MM/DD
 export const getDateStr = date => {
-  return new Date(date).toLocaleString('en-US', {
-    month: 'long',
-    day: '2-digit',
-    year: 'numeric',
-  })
-}
-
-export const postIsPublished = (post: any) => {
-  return post.Published === 'Yes'
+  return new Date(date).toLocaleString().substr(0, 10)
 }
 
 export const normalizeSlug = slug => {

@@ -1,15 +1,22 @@
 import rpc, { values } from './rpc'
+import { post } from '../../types/post'
 
-export default async function getPageData(pageId: string) {
+//pageIdから中のコンテンツをとる
+export default async function getPageData(post: post) {
+  const pageId = getPageId(post)
   try {
     const data = await loadPageChunk({ pageId })
     const blocks = values(data.recordMap.block)
-
+    //先頭のblockはページの階層などを含むので除く
     if (blocks[0] && blocks[0].value.content) {
-      // remove table blocks
-      blocks.splice(0, 3)
+      if (post.Link) {
+        //Linkの場合は階層も含んでしまう
+        blocks.splice(0, 5)
+      } else {
+        // remove table blocks
+        blocks.splice(0, 3)
+      }
     }
-
     return { blocks }
   } catch (err) {
     console.error(`Failed to load pageData for ${pageId}`, err)
@@ -31,4 +38,29 @@ export function loadPageChunk({
     chunkNumber,
     verticalColumns,
   })
+}
+
+//linkがあればlinkからidを取得。なければpageのidを取得。
+function getPageId(post: post) {
+  if (post.Link) {
+    // urlの末32文字を次のようにハイフン区切りしたのがpageid
+    // {8} - {4} - {4} - {4} - {12}
+    const len = post.Link.length
+    const idSize = 32
+    const id = post.Link.substr(len - idSize, len)
+    const sep = '-'
+    const pageId =
+      id.substr(0, 8) +
+      sep +
+      id.substr(8, 4) +
+      sep +
+      id.substr(12, 4) +
+      sep +
+      id.substr(16, 4) +
+      sep +
+      id.substr(20, 12)
+    return pageId
+  } else {
+    return post.id
+  }
 }
