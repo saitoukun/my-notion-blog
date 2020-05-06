@@ -4,28 +4,28 @@
     <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
-    <updated>2020-04-29T07:43:15.449Z</updated>
+    <updated>2020-05-06T04:55:52.909Z</updated>
     <id>My Notion Blog</id>
     <entry>
-      <id>/blog/notion-blog-link</id>
-      <title>Notion-blog参考にしたリンクなど</title>
-      <link href="/blog/notion-blog-link"/>
-      <updated>2020-01-31T15:00:00.579Z</updated>
+      <id>/blog/neumorphism</id>
+      <title>SwiftUI なんでもNeumorphismにしてしまえ</title>
+      <link href="/blog/neumorphism"/>
+      <updated>2020-04-26T15:00:00.178Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
           <p class="more">
-            <a href="/blog/notion-blog-link">Read more</a>
+            <a href="/blog/neumorphism">Read more</a>
           </p>
         </div>
       </content>
-      <author><name>ぺい よっ</name></author>
+      <author><name>yoppe  </name></author>
     </entry>
     <entry>
       <id>/blog/start</id>
       <title>Notion-blogの手順とその問題</title>
       <link href="/blog/start"/>
-      <updated>2020-01-31T15:00:00.579Z</updated>
+      <updated>2020-01-31T15:00:00.178Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -34,13 +34,13 @@
           </p>
         </div>
       </content>
-      <author><name>ぺい よっ</name></author>
+      <author><name>yoppe  </name></author>
     </entry>
     <entry>
       <id>/blog/domain</id>
       <title>Notion-blogのサブドメインをさくっと変更</title>
       <link href="/blog/domain"/>
-      <updated>2020-04-25T15:00:00.579Z</updated>
+      <updated>2020-04-25T15:00:00.179Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -49,6 +49,6 @@
           </p>
         </div>
       </content>
-      <author><name>ぺい よっ</name></author>
+      <author><name>yoppe  </name></author>
     </entry>
   </feed>
