@@ -1,9 +1,25 @@
-# Notion Blog
+# My Notion Blog
 
-このリポジトリは、vercel 社のの notion-blog をクローンして改修している。
-https://github.com/ijjk/notion-blog
+ここでは、vercel 社の`notion-blog` をクローンして改修している。
+これは notion のプライベート API を外部データとして Static Generation する MIT ライセンスのリポジトリ。
+[notion-blog リポジトリ](https://github.com/ijjk/notion-blog)
 
-# Notion Blog
+機能追加や改修ごとの差分がわかりやすいよう、基本的に PullRequest をマージしていくことで改修する。
+
+## 環境変数
+
+src/lib/notion/server-constants.js で、process.env つまり環境変数を参照して自分の Notion の id と token を設定する。
+
+このリポジトリでは`dotenv`で管理する。
+
+`.env`の記述
+
+```
+NOTION_TOKEN=<your-token>
+BLOG_INDEX_ID=<your-blog-index-id>
+```
+
+なお、Next.js の`getStaticProps`による Static Generation のために使用するため、ここで指定する環境変数は、本番環境ではビルド時にのみ実行される。JS バンドルに含まれることはない。
 
 ## Creating Your Pages Table
 
@@ -22,11 +38,9 @@ https://github.com/ijjk/notion-blog
 2. Create a **inline** table on that page, don't use a full page table as it requires querying differently
 3. Add the below fields to the table
 
-The table should have the following properties:
-
-### Table Items
-
 #### originals
+
+The table should have the following properties:
 
 - `Page`: this the blog post's page
 - `Slug`: this is the blog post's slug relative to `/blog`, it should be a text property
@@ -37,20 +51,32 @@ The table should have the following properties:
 
 #### extentions
 
+こちらは本リポジトリで追加した機能なので自分で追加する:
+
 - `Tags`: This is the article tags
 - `Link`: If you put your own Notion Page link here, the page reference will take precedence
 
 ## Running Locally
 
-To run the project locally you need to follow steps 1 and 2 of [deploying](#deploy-your-own) and then follow the below steps
-
 1. Install dependencies `yarn`
-2. Expose `NOTION_TOKEN` and `BLOG_INDEX_ID` in your environment `export NOTION_TOKEN='<your-token>'`and `export BLOG_INDEX_ID='<your-blog-index-id>'` or `set NOTION_TOKEN="<your-token>" && set BLOG_INDEX_ID="<your-blog-index-id>"` for Windows
+2. Create and describe an `.env` file``NOTION_TOKEN=<your-token>`,`BLOG_INDEX_ID=<your-blog-index-id>`
 3. Run next in development mode `yarn dev`
 4. Build and run in production mode `yarn build && yarn start`
 
-## Credits
+## When token is changed
 
-- Guillermo Rauch [@rauchg](https://twitter.com/rauchg) for the initial idea
-- Shu Ding [@shuding\_](https://twitter.com/shuding_) for the design help
-- Luis Alvarez [@luis_fades](https://twitter.com/luis_fades) for design help and bug catching
+Procedure when the token of notion changes
+
+```
+now secrets ls
+now secrets rm notion-token
+now secrets add notion-token <token>
+```
+
+## Acknowledgments
+
+[notion-blog リポジトリ](https://github.com/ijjk/notion-blog)より引用。ありがとうございます。Vercel は神。
+
+> - Guillermo Rauch @rauchg for the initial idea
+> - Shu Ding @shuding\_ for the design help
+> - Luis Alvarez @luis_fades for design help and bug catching

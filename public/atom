@@ -4,13 +4,13 @@
     <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
-    <updated>2020-05-06T04:55:52.909Z</updated>
+    <updated>2020-05-10T08:00:04.264Z</updated>
     <id>My Notion Blog</id>
     <entry>
       <id>/blog/neumorphism</id>
-      <title>SwiftUI なんでもNeumorphismにしてしまえ</title>
+      <title>SwiftUI Modiferを用意してNeumorphismにしてしまえ</title>
       <link href="/blog/neumorphism"/>
-      <updated>2020-04-26T15:00:00.178Z</updated>
+      <updated>2020-04-26T15:00:00.227Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -25,7 +25,7 @@
       <id>/blog/start</id>
       <title>Notion-blogの手順とその問題</title>
       <link href="/blog/start"/>
-      <updated>2020-01-31T15:00:00.178Z</updated>
+      <updated>2020-01-31T15:00:00.227Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -38,14 +38,29 @@
     </entry>
     <entry>
       <id>/blog/domain</id>
-      <title>Notion-blogのサブドメインをさくっと変更</title>
+      <title>Vercel nowのサブドメインをさくっと変更</title>
       <link href="/blog/domain"/>
-      <updated>2020-04-25T15:00:00.179Z</updated>
+      <updated>2020-04-25T15:00:00.227Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
           <p class="more">
             <a href="/blog/domain">Read more</a>
+          </p>
+        </div>
+      </content>
+      <author><name>yoppe  </name></author>
+    </entry>
+    <entry>
+      <id>/blog/dotenv</id>
+      <title>notion-blogにdotenvをいれる</title>
+      <link href="/blog/dotenv"/>
+      <updated>2020-05-06T15:00:00.228Z</updated>
+      <content type="xhtml">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          
+          <p class="more">
+            <a href="/blog/dotenv">Read more</a>
           </p>
         </div>
       </content>
