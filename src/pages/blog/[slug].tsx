@@ -140,7 +140,6 @@ const RenderPost: React.FC<{ post: post; redirect: any; preview: any }> = ({
     )
   }
 
-  console.log(post)
   return (
     <>
       <Header titlePre={post.page} />
