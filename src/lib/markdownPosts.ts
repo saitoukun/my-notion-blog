@@ -20,7 +20,7 @@ export const getSortedPostsData = () => {
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents)
 
-    const contentHtml = null
+    const contentHtml = ''
     const title = matterResult.data.title
     const date = matterResult.data.date
     const tags = matterResult.data.tags.split(',')

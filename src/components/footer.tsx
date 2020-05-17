@@ -1,6 +1,6 @@
 import ExtLink from './ext-link'
-import Twitter from '../components/svgs/twitter'
-import Instagram from '../components/svgs/github'
+import { Twitter } from '../components/svgs/twitter'
+import { Instagram } from '../components/svgs/Instagram'
 
 const contacts = [
   {
@@ -20,7 +20,7 @@ export default () => (
     <footer>
       <h2>Profile</h2>
       <a>
-        <img src="/profile.jpg" alt="yoppe" />
+        <img src="/profile.jpg" id="profile" alt="yoppe" />
       </a>
       <p>yoppe</p>
       <p>2年目のwebエンジニア。趣味でiOSアプリを作っている。</p>
@@ -41,7 +41,7 @@ export default () => (
         max-width: 600px;
         margin: 10px auto;
       }
-      img {
+      #profile {
         width: 4rem;
         height: 4rem;
         border-radius: 9999px;

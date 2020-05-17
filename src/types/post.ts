@@ -13,15 +13,15 @@
   }
  */
 export type post = {
-  id: string
-  Link: string
-  Tags: string[]
-  Slug: string
-  Date: number
-  Authors: string[]
-  Published: boolean
-  Page: string
+  id: string | null
+  link: string | null
+  tags: string[]
+  slug: string
+  date: number
+  authors: string[]
+  published: boolean
+  page: string
   preview: any
-  content: any
+  content: any | null
   hasTweet?: boolean
 }

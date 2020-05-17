@@ -9,7 +9,7 @@ export default async function getPageData(post: post) {
     const blocks = values(data.recordMap.block)
     //先頭のblockはページの階層などを含むので除く
     if (blocks[0] && blocks[0].value.content) {
-      if (post.Link) {
+      if (post.link) {
         //Linkの場合は階層も含んでしまう
         blocks.splice(0, 5)
       } else {
@@ -42,12 +42,12 @@ export function loadPageChunk({
 
 //linkがあればlinkからidを取得。なければpageのidを取得。
 function getPageId(post: post) {
-  if (post.Link) {
+  if (post.link) {
     // urlの末32文字を次のようにハイフン区切りしたのがpageid
     // {8} - {4} - {4} - {4} - {12}
-    const len = post.Link.length
+    const len = post.link.length
     const idSize = 32
-    const id = post.Link.substr(len - idSize, len)
+    const id = post.link.substr(len - idSize, len)
     const sep = '-'
     const pageId =
       id.substr(0, 8) +
