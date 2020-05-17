@@ -1,13 +1,15 @@
+import { post } from '../types/post'
+
 export const getBlogLink = (slug: string) => {
   return `/blog/${slug}`
 }
 
-// YYYY/MM/DD
-export const getDateStr = date => {
-  return new Date(date).toLocaleString().substr(0, 10)
+// return "YYYY/MM/DD"
+export const getDateStr = (date: number) => {
+  return new Date(date).toISOString().split('T')[0]
 }
 
-export const normalizeSlug = slug => {
+export const normalizeSlug = (slug: string): any => {
   if (typeof slug !== 'string') return slug
 
   let startingSlash = slug.startsWith('/')
@@ -20,4 +22,39 @@ export const normalizeSlug = slug => {
     slug = slug.substr(0, slug.length - 1)
   }
   return startingSlash || endingSlash ? normalizeSlug(slug) : slug
+}
+
+// 取得したデータをpost型にする
+export const dataToPosts = (postData: any[]) => {
+  const posts: post[] = postData.map(data => {
+    return dataToPost(data)
+  })
+  return posts
+}
+
+export const dataToPost = (data: any) => {
+  const id: string | null = data.id ?? null
+  const link: string | null = data.Link ?? null
+  const tags: string[] = data.Tags
+  const slug: string = data.Slug
+  const date: number = data.Date
+  const authors: string[] = data.Authors
+  const published: boolean = data.Published
+  const page: string = data.Page
+  const preview: any = null
+  const content: object[] = data.content ?? null
+
+  const post: post = {
+    id,
+    link,
+    tags,
+    slug,
+    date,
+    authors,
+    published,
+    page,
+    preview,
+    content,
+  }
+  return post
 }

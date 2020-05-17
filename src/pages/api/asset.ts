@@ -32,7 +32,9 @@ export default async function notionApi(
       }
 
       res.status(307)
-      res.setHeader('Location', signedUrls.pop())
+
+      const value: string = signedUrls.pop() ?? ''
+      res.setHeader('Location', value)
       res.end()
     }
   } catch (error) {

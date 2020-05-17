@@ -1,7 +1,12 @@
 import React from 'react'
 import components from '../../components/dynamic'
 
-function applyTags(tags = [], children, noPTag = false, key) {
+function applyTags(
+  tags: any[] = [],
+  children: any,
+  noPTag: boolean = false,
+  key: number
+) {
   let child = children
 
   for (const tag of tags) {
@@ -15,14 +20,19 @@ function applyTags(tags = [], children, noPTag = false, key) {
       props.href = tag[1]
     }
 
-    child = React.createElement(components[tagName] || tagName, props, child)
+    const index: keyof typeof components = tag[0]
+    child = React.createElement(components[index] || tagName, props, child)
   }
   return child
 }
 
-export function textBlock(text = [], noPTag = false, mainKey) {
+export function textBlock(
+  text: any[] = [],
+  noPTag: boolean = false,
+  mainKey: any
+) {
   const children = []
-  let key = 0
+  let key: number = 0
 
   for (const textItem of text) {
     key++

@@ -1,4 +1,4 @@
-const collectText = (el, acc = []) => {
+const collectText = (el: any, acc: any[] = []) => {
   if (el) {
     if (typeof el === 'string') acc.push(el)
     if (Array.isArray(el)) el.map(item => collectText(item, acc))

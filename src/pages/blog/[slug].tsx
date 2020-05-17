@@ -1,3 +1,4 @@
+import { GetStaticProps, GetStaticPaths } from 'next'
 import Link from 'next/link'
 import fetch from 'node-fetch'
 import { useRouter } from 'next/router'
@@ -12,18 +13,20 @@ import getPageData from '../../lib/notion/getPageData'
 import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import getNotionUsers from '../../lib/notion/getNotionUsers'
-import { getBlogLink, getDateStr } from '../../lib/blog-helpers'
+import { getBlogLink, getDateStr, dataToPost } from '../../lib/blog-helpers'
 import { post } from '../../types/post'
 
-// Get the data for each blog post
-//ここでpost.contentを代入している
-export async function getStaticProps({ params: { slug }, preview }) {
+/**
+ * Static Generation
+ */
+export const getStaticProps: GetStaticProps = async ({ params, preview }) => {
+  const slug: string = params!.slug as string
   // load the postsTable so that we can get the page's ID
   const postsTable = await getBlogIndex()
-  const post = postsTable[slug]
+  const data: any = postsTable[slug]
   // if we can't find the post or if it is unpublished and
   // viewed without preview mode then we just redirect to /blog
-  if (!post || (!post.Published && !preview)) {
+  if (!data || (!data.Published && !preview)) {
     console.log(`Failed to find post for slug: ${slug}`)
     return {
       props: {
@@ -35,11 +38,11 @@ export async function getStaticProps({ params: { slug }, preview }) {
   }
 
   //const pageId = getPageId(post)
-  const postData = await getPageData(post)
-  post.content = postData.blocks
+  const contentData = await getPageData(data)
+  data.content = contentData.blocks
 
-  for (let i = 0; i < postData.blocks.length; i++) {
-    const { value } = postData.blocks[i]
+  for (let i = 0; i < contentData.blocks.length; i++) {
+    const { value } = contentData.blocks[i]
     const { type, properties } = value
     if (type == 'tweet') {
       const src = properties.source[0][0]
@@ -53,15 +56,17 @@ export async function getStaticProps({ params: { slug }, preview }) {
         )
         const json = await res.json()
         properties.html = json.html.split('<script')[0]
-        post.hasTweet = true
+        data.hasTweet = true
       } catch (_) {
         console.log(`Failed to get tweet embed for ${src}`)
       }
     }
   }
 
-  const { users } = await getNotionUsers(post.Authors || [])
-  post.Authors = Object.keys(users).map(id => users[id].full_name)
+  const { users } = await getNotionUsers(data.Authors || [])
+  data.Authors = Object.keys(users).map(id => users[id].full_name)
+
+  const post: post = dataToPost(data)
 
   return {
     props: {
@@ -72,8 +77,10 @@ export async function getStaticProps({ params: { slug }, preview }) {
   }
 }
 
-// Return our list of blog posts to prerender
-export async function getStaticPaths() {
+/**
+ * Dynamic Routes
+ */
+export const getStaticPaths: GetStaticPaths = async () => {
   const postsTable = await getBlogIndex()
   // we fallback for any unpublished posts to save build time
   // for actually published ones
@@ -104,7 +111,8 @@ const RenderPost: React.FC<{ post: post; redirect: any; preview: any }> = ({
         const script = document.createElement('script')
         script.async = true
         script.src = twitterSrc
-        document.querySelector('body').appendChild(script)
+        const body = document.querySelector('body') as HTMLBodyElement
+        body.appendChild(script)
       }
     }
   }, [])
@@ -134,13 +142,13 @@ const RenderPost: React.FC<{ post: post; redirect: any; preview: any }> = ({
 
   return (
     <>
-      <Header titlePre={post.Page} />
+      <Header titlePre={post.page} />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
             <b>Note:</b>
             {` `}Viewing in preview mode{' '}
-            <Link href={`/api/clear-preview?slug=${post.Slug}`}>
+            <Link href={`/api/clear-preview?slug=${post.slug}`}>
               <button className={blogStyles.escapePreview}>Exit Preview</button>
             </Link>
           </div>
@@ -157,13 +165,12 @@ export default RenderPost
 
 const TitleBlock: React.FC<{ post: post }> = ({ post }) => (
   <>
-    <h1>{post.Page || ''}</h1>
-    {post.Authors.length > 0 && (
-      <div className="authors">By: {post.Authors.join(' ')}</div>
+    <h1>{post.page || ''}</h1>
+    {post.authors && (
+      <div className="authors">By: {post.authors.join(' ')}</div>
     )}
-    {post.Date && <div className="posted">Posted: {getDateStr(post.Date)}</div>}
-    {post.Tags && <div className="tags">Tags: {post.Tags}</div>}
-
+    {post.date && <div className="posted">Posted: {getDateStr(post.date)}</div>}
+    {post.tags && <div className="tags">Tags: {post.tags}</div>}
     <hr />
   </>
 )
@@ -186,7 +193,7 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
         <p>This post has no content</p>
       )}
 
-      {(post.content || []).map((block, blockIdx) => {
+      {(post.content || []).map((block: any, blockIdx: number) => {
         // post.contentを全部回す
         const { value } = block
         const { type, properties, id, parent_id } = value
@@ -218,7 +225,7 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
               Object.keys(listMap).map(itemId => {
                 if (listMap[itemId].isNested) return null
 
-                const createEl = item =>
+                const createEl = (item: any) =>
                   React.createElement(
                     components.li || 'ul',
                     { key: item.key },
@@ -227,7 +234,7 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
                       ? React.createElement(
                           components.ul || 'ul',
                           { key: item + 'sub-list' },
-                          item.nested.map(nestedId =>
+                          item.nested.map((nestedId: string) =>
                             createEl(listMap[nestedId])
                           )
                         )

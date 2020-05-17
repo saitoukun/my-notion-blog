@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default ({ initialValue }) => {
+export default (initialValue: any) => {
   const [clicks, setClicks] = useState(initialValue)
 
   return (

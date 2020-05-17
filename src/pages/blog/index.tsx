@@ -1,20 +1,24 @@
+import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import Header from '../../components/header'
 
 import blogStyles from '../../styles/blog.module.css'
 import sharedStyles from '../../styles/shared.module.css'
 
-import { getBlogLink, getDateStr } from '../../lib/blog-helpers'
+import { getBlogLink, getDateStr, dataToPosts } from '../../lib/blog-helpers'
 import { textBlock } from '../../lib/notion/renderers'
 import getNotionUsers from '../../lib/notion/getNotionUsers'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import { post } from '../../types/post'
 
-export async function getStaticProps({ preview }) {
+/**
+ * Static Generation with Notion
+ */
+export const getStaticProps: GetStaticProps = async ({ preview }) => {
   const postsTable = await getBlogIndex()
 
   const authorsToGet: Set<string> = new Set()
-  const posts: post[] = Object.keys(postsTable)
+  const postsData: any[] = Object.keys(postsTable)
     .map(slug => {
       const post = postsTable[slug]
       // remove draft posts in production
@@ -31,10 +35,21 @@ export async function getStaticProps({ preview }) {
 
   const { users } = await getNotionUsers([...authorsToGet])
 
-  posts.map(post => {
-    post.Authors = post.Authors.map(id => users[id].full_name)
+  postsData.map(post => {
+    post.Authors = post.Authors.map((id: any) => users[id].full_name)
   })
 
+  // Sort posts by date
+  postsData.sort((a: any, b: any) => {
+    if (a.Date < b.Date) {
+      return 1
+    } else {
+      return -1
+    }
+  })
+
+  //objectをpost型にする
+  const posts: post[] = dataToPosts(postsData)
   return {
     props: {
       preview: preview || false,
@@ -44,7 +59,7 @@ export async function getStaticProps({ preview }) {
   }
 }
 
-export default ({ posts = [], preview }) => {
+export default ({ posts, preview }: { posts: post[]; preview: any }) => {
   return (
     <>
       <Header titlePre="Blog" />
@@ -66,28 +81,28 @@ export default ({ posts = [], preview }) => {
         )}
         {posts.map(post => {
           return (
-            <div className={blogStyles.postPreview} key={post.Slug}>
+            <div className={blogStyles.postPreview} key={post.slug}>
               <h3>
-                <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
+                <Link href="/blog/[slug]" as={getBlogLink(post.slug)}>
                   <div className={blogStyles.titleContainer}>
-                    {!post.Published && (
+                    {!post.published && (
                       <span className={blogStyles.draftBadge}>Draft</span>
                     )}
-                    <a>{post.Page}</a>
+                    <a>{post.page}</a>
                   </div>
                 </Link>
               </h3>
-              {post.Authors.length > 0 && (
-                <div className="authors">By: {post.Authors.join(' ')}</div>
+              {post.authors.length > 0 && (
+                <div className="authors">By: {post.authors.join(' ')}</div>
               )}
-              {post.Date && (
-                <div className="posted">Posted: {getDateStr(post.Date)}</div>
+              {post.date && (
+                <div className="posted">Posted: {getDateStr(post.date)}</div>
               )}
               <p>
                 {(!post.preview || post.preview.length === 0) &&
                   'No preview available'}
-                {(post.preview || []).map((block, idx) =>
-                  textBlock(block, true, `${post.Slug}${idx}`)
+                {(post.preview || []).map((block: any, idx: string) =>
+                  textBlock(block, true, `${post.slug}${idx}`)
                 )}
               </p>
             </div>

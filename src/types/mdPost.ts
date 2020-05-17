@@ -11,7 +11,7 @@
 */
 export type mdPost = {
   id: string
-  contentHtml: string | null
+  contentHtml: string
   title: string
   date: string
   tags: string[]

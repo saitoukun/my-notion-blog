@@ -1,4 +1,4 @@
-export default props => (
+const extLink = (props: any) => (
   <>
     <a {...props} rel="noopener" target={props.target || '_blank'} />
     <style jsx>{`
@@ -9,3 +9,5 @@ export default props => (
     `}</style>
   </>
 )
+
+export default extLink
