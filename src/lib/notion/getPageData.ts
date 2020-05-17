@@ -2,14 +2,15 @@ import rpc, { values } from './rpc'
 import { post } from '../../types/post'
 
 //pageIdから中のコンテンツをとる
-export default async function getPageData(post: post) {
-  const pageId = getPageId(post)
+// TODO dataとpostをどう安全に扱うかの検討
+export default async function getPageData(data: any) {
+  const pageId = getPageId(data)
   try {
     const data = await loadPageChunk({ pageId })
     const blocks = values(data.recordMap.block)
     //先頭のblockはページの階層などを含むので除く
     if (blocks[0] && blocks[0].value.content) {
-      if (post.link) {
+      if (data.Link) {
         //Linkの場合は階層も含んでしまう
         blocks.splice(0, 5)
       } else {
@@ -41,13 +42,13 @@ export function loadPageChunk({
 }
 
 //linkがあればlinkからidを取得。なければpageのidを取得。
-function getPageId(post: post) {
-  if (post.link) {
+function getPageId(data: any) {
+  if (data.Link) {
     // urlの末32文字を次のようにハイフン区切りしたのがpageid
     // {8} - {4} - {4} - {4} - {12}
-    const len = post.link.length
+    const len = data.Link.length
     const idSize = 32
-    const id = post.link.substr(len - idSize, len)
+    const id = data.Link.substr(len - idSize, len)
     const sep = '-'
     const pageId =
       id.substr(0, 8) +
@@ -61,6 +62,6 @@ function getPageId(post: post) {
       id.substr(20, 12)
     return pageId
   } else {
-    return post.id
+    return data.id
   }
 }
