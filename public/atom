@@ -4,13 +4,13 @@
     <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
-    <updated>2020-05-17T16:07:20.895Z</updated>
+    <updated>2020-05-24T10:43:42.595Z</updated>
     <id>My Notion Blog</id>
     <entry>
       <id>/blog/start</id>
       <title>Notion-blogの手順とその問題</title>
       <link href="/blog/start"/>
-      <updated>2020-01-31T15:00:00.183Z</updated>
+      <updated>2020-01-31T15:00:00.642Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -25,7 +25,7 @@
       <id>/blog/domain</id>
       <title>Vercel nowのサブドメインをさくっと変更</title>
       <link href="/blog/domain"/>
-      <updated>2020-04-25T15:00:00.183Z</updated>
+      <updated>2020-04-25T15:00:00.642Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -40,7 +40,7 @@
       <id>/blog/neumorphism</id>
       <title>SwiftUI Modiferを用意してNeumorphismにしてしまえ</title>
       <link href="/blog/neumorphism"/>
-      <updated>2020-04-26T15:00:00.183Z</updated>
+      <updated>2020-04-26T15:00:00.643Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -55,7 +55,7 @@
       <id>/blog/dotenv</id>
       <title>notion-blogにdotenvをいれる</title>
       <link href="/blog/dotenv"/>
-      <updated>2020-05-06T15:00:00.184Z</updated>
+      <updated>2020-05-06T15:00:00.643Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -70,7 +70,7 @@
       <id>/blog/staub</id>
       <title>煮込みにハマってStaubを買った</title>
       <link href="/blog/staub"/>
-      <updated>2020-05-10T15:00:00.184Z</updated>
+      <updated>2020-05-10T15:00:00.643Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           
@@ -85,7 +85,7 @@
       <id>/blog/dod-chair</id>
       <title>在宅アウトドアがしたい。 DOD スワルスエックスを買った。</title>
       <link href="/blog/dod-chair"/>
-      <updated>2020-05-14T15:00:00.184Z</updated>
+      <updated>2020-05-14T15:00:00.643Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           

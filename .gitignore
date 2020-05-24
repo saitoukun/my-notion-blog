@@ -30,4 +30,4 @@ yarn-error.log*
 .now
 
 # package
-package-lock
+/package-lock.json
