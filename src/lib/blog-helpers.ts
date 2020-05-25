@@ -58,3 +58,19 @@ export const dataToPost = (data: any) => {
   }
   return post
 }
+
+/**
+ * 階層構造のjsonから値を取得する
+ * @param obj
+ */
+export const seekValue = (obj: any): string => {
+  if (typeof obj === 'object') {
+    var strValue = ''
+    for (const key in obj) {
+      strValue += seekValue(obj[key])
+    }
+    return strValue
+  } else {
+    return obj
+  }
+}

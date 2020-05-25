@@ -13,7 +13,12 @@ import getPageData from '../../lib/notion/getPageData'
 import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import getNotionUsers from '../../lib/notion/getNotionUsers'
-import { getBlogLink, getDateStr, dataToPost } from '../../lib/blog-helpers'
+import {
+  getBlogLink,
+  getDateStr,
+  dataToPost,
+  seekValue,
+} from '../../lib/blog-helpers'
 import { post } from '../../types/post'
 
 /**
@@ -262,14 +267,21 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
           case 'page':
           case 'bookmark':
             if (properties) {
+              const link: string = seekValue(properties.link)
+              let title: string = seekValue(properties.title)
+
+              if (!title) {
+                //ドメインだけ取得
+                title = link.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)![1]
+              }
               toRender.push(
                 <ExtLink
                   key={id}
-                  href={properties.link}
+                  href={link}
                   className="dotted"
                   style={{ color: 'inherit' }}
                 >
-                  {properties.title}
+                  {title}
                 </ExtLink>
               )
             }
@@ -282,6 +294,8 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
               toRender.push(textBlock(properties.title, false, id))
             }
             break
+
+          //TODO 混ざってるので分離する
           case 'image':
           case 'video':
           case 'embed': {
@@ -315,7 +329,7 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
               : {
                   width,
                   border: 'none',
-                  height: block_height,
+                  height: 'auto',
                   display: 'block',
                   maxWidth: '100%',
                 }
