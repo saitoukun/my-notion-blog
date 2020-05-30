@@ -1,8 +1,8 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import Header from '../../components/header'
-import { getAllPostIds, getPostData } from '../../lib/markdownPosts'
-import blogStyles from '../../styles/blog.module.css'
-import { mdPost } from '../../types/mdPost'
+import Header from 'components/header'
+import { getAllPostIds, getPostData } from 'lib/markdownPosts'
+import blogStyles from 'styles/blog.module.css'
+import { mdPost } from 'types/mdPost'
 
 /**
  * Static Generation

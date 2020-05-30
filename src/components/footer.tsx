@@ -1,6 +1,6 @@
 import ExtLink from './ext-link'
-import { Twitter } from '../components/svgs/twitter'
-import { Instagram } from '../components/svgs/Instagram'
+import { Twitter } from 'components/svgs/twitter'
+import { Instagram } from 'components/svgs/Instagram'
 
 const contacts = [
   {

@@ -1,10 +1,10 @@
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
-import Header from '../../components/header'
-import { getSortedPostsData } from '../../lib/markdownPosts'
-import blogStyles from '../../styles/blog.module.css'
-import sharedStyles from '../../styles/shared.module.css'
-import { mdPost } from '../../types/mdPost'
+import Header from 'components/header'
+import { getSortedPostsData } from 'lib/markdownPosts'
+import blogStyles from 'styles/blog.module.css'
+import sharedStyles from 'styles/shared.module.css'
+import { mdPost } from 'types/mdPost'
 
 /**
  * Static Generation with MarkDown

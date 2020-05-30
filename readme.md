@@ -1,16 +1,11 @@
 # My Notion Blog
 
 ここでは、vercel 社の`notion-blog` をクローンして改修している。
-これは notion のプライベート API を外部データとして Static Generation する MIT ライセンスのリポジトリ。
-[notion-blog リポジトリ](https://github.com/ijjk/notion-blog)
+[notion-blog](https://github.com/ijjk/notion-blog)
 
-機能追加や改修ごとの差分がわかりやすいよう、基本的に PullRequest をマージしていくことで改修する。
+機能追加や改修ごとの差分がわかりやすいよう、PullRequestをマージしていくことで改修する。
 
 ## 環境変数
-
-src/lib/notion/server-constants.js で、process.env つまり環境変数を参照して自分の Notion の id と token を設定する。
-
-このリポジトリでは`dotenv`で管理する。
 
 `.env`の記述
 
@@ -19,18 +14,7 @@ NOTION_TOKEN=<your-token>
 BLOG_INDEX_ID=<your-blog-index-id>
 ```
 
-なお、Next.js の`getStaticProps`による Static Generation のために使用するため、ここで指定する環境変数は、本番環境ではビルド時にのみ実行される。JS バンドルに含まれることはない。
-
 ## Creating Your Pages Table
-
-**Note**: this is auto run if a table isn't detected the first time visiting `/blog`
-
-### Using the Pre-Configured Script
-
-1. Create a blank page in Notion
-2. Clone this repo `git clone https://github.com/ijjk/notion-blog.git`
-3. Install dependencies `cd notion-blog && yarn`
-4. Run script to create table `NOTION_TOKEN='token' BLOG_INDEX_ID='new-page-id' node scripts/create-table.js` See [here](#getting-blog-index-and-token) for finding the id for the new page
 
 ### Manually Creating the Table
 

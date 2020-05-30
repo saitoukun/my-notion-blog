@@ -1,6 +1,3 @@
-//dotenvを使用
-require('dotenv').config()
-
 // use commonjs so it can be required without transpiling
 const path = require('path')
 
