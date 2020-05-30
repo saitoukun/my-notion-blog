@@ -1,15 +1,15 @@
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
-import Header from '../../components/header'
+import Header from 'components/header'
 
-import blogStyles from '../../styles/blog.module.css'
-import sharedStyles from '../../styles/shared.module.css'
+import blogStyles from 'styles/blog.module.css'
+import sharedStyles from 'styles/shared.module.css'
 
-import { getBlogLink, getDateStr, dataToPosts } from '../../lib/blog-helpers'
-import { textBlock } from '../../lib/notion/renderers'
-import getNotionUsers from '../../lib/notion/getNotionUsers'
-import getBlogIndex from '../../lib/notion/getBlogIndex'
-import { post } from '../../types/post'
+import { getBlogLink, getDateStr, dataToPosts } from 'lib/blog-helpers'
+import { textBlock } from 'lib/notion/renderers'
+import getNotionUsers from 'lib/notion/getNotionUsers'
+import getBlogIndex from 'lib/notion/getBlogIndex'
+import { post } from 'types/post'
 
 /**
  * Static Generation with Notion
@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ preview }) => {
       preview: preview || false,
       posts,
     },
-    revalidate: 10,
+    unstable_revalidate: 10,
   }
 }
 

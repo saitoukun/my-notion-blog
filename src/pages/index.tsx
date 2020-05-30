@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Header from '../components/header'
-import ExtLink from '../components/ext-link'
-import { GitHub } from '../components/svgs/github'
-import sharedStyles from '../styles/shared.module.css'
+import Header from 'components/header'
+import ExtLink from 'components/ext-link'
+import { GitHub } from 'components/svgs/github'
+import sharedStyles from 'styles/shared.module.css'
 
 export default () => (
   <>
@@ -21,11 +21,11 @@ export default () => (
           このブログは自分用にNotionで書いたメモを公開できる場として使います。
         </p>
         <ExtLink
-          href="https://github.com/ijjk/notion-blog"
+          href="https://github.com/saitoukun/my-notion-blog"
           className="dotted"
           style={{ color: 'inherit' }}
         >
-          notion-blog
+          my-notion-blog
         </ExtLink>
       </div>
     </div>

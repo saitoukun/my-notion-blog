@@ -1,5 +1,5 @@
 import rpc, { values } from './rpc'
-import { post } from '../../types/post'
+import { post } from 'types/post'
 
 //pageIdから中のコンテンツをとる
 // TODO dataとpostをどう安全に扱うかの検討

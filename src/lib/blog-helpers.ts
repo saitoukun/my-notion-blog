@@ -1,4 +1,4 @@
-import { post } from '../types/post'
+import { post } from 'types/post'
 
 export const getBlogLink = (slug: string) => {
   return `/blog/${slug}`

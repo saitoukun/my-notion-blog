@@ -7,7 +7,7 @@ import getBlogIndex from './notion/getBlogIndex'
 import getNotionUsers from './notion/getNotionUsers'
 import { getBlogLink } from './blog-helpers'
 
-import { post } from '../types/post'
+import { post } from 'types/post'
 
 // must use weird syntax to bypass auto replacing of NODE_ENV
 process.env['NODE' + '_ENV'] = 'production'
