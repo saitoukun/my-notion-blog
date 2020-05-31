@@ -1,9 +1,9 @@
 import { AppProps } from 'next/app'
 import 'styles/global.css'
-import Profile from 'styles/profile.module.css'
-import ExtLink from 'components/ext-link'
-import { textBlock } from 'lib/notion/renderers'
 import Footer from 'components/footer'
+import initFirebase from 'lib/initFirebase'
+
+initFirebase();
 
 /**
  * This function is fired when the final values for any of the metrics have finished calculating on the page. 
