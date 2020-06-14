@@ -31,7 +31,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=<your-app-id>
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=<your-measurement-id>
 ```
 
-NOTION_TOKEN, BLOG_INDEX_IDはnotionのプライベートapiから値を取得するために必要。"NEXT_PUBLIC_FIREBASE_"から始まる環境変数は、firebaseをプロジェクトに追加するために必要。
+NOTION_TOKEN,BLOG_INDEX_IDはnotionのプライベートapiから値を取得するために必要。"NEXT_PUBLIC_FIREBASE_"から始まる環境変数は、firebaseをプロジェクトに追加するために必要。
 
 "NEXT_PUBLIC_"のprefixはがついたものは、バンドルに含まれる。
 (https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables)

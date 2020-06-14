@@ -1,6 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Link from 'next/link'
-import fetch from 'node-fetch'
 import { useRouter } from 'next/router'
 import Header from 'components/header'
 import Heading from 'components/heading'
@@ -9,16 +8,10 @@ import ExtLink from 'components/ext-link'
 import ReactJSXParser from '@zeit/react-jsx-parser'
 import blogStyles from 'styles/blog.module.css'
 import { textBlock } from 'lib/notion/renderers'
-import getPageData from 'lib/notion/getPageData'
 import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from 'lib/notion/getBlogIndex'
-import getNotionUsers from 'lib/notion/getNotionUsers'
-import {
-  getBlogLink,
-  getDateStr,
-  dataToPost,
-  seekValue,
-} from 'lib/blog-helpers'
+import { getPost } from 'lib/notion/getPosts'
+import { getBlogLink, getDateStr, seekValue } from 'lib/blog-helpers'
 import { post } from 'types/post'
 
 /**
@@ -26,64 +19,29 @@ import { post } from 'types/post'
  */
 export const getStaticProps: GetStaticProps = async ({ params, preview }) => {
   const slug: string = params!.slug as string
-  // load the postsTable so that we can get the page's ID
-  const postsTable = await getBlogIndex()
-  const data: any = postsTable[slug]
-  // if we can't find the post or if it is unpublished and
-  // viewed without preview mode then we just redirect to /blog
-  if (!data || (!data.Published && !preview)) {
-    console.log(`Failed to find post for slug: ${slug}`)
-    return {
-      props: {
-        redirect: '/blog',
-        preview: false,
-      },
-      unstable_revalidate: 5,
-    }
+  const post: post | null = await getPost(slug, preview)
+    .catch((error: Error) => {
+      console.log(error.message)
+      return null
+    })
+
+  const props = post ? {
+    post,
+    preview: preview || false
+  } : {
+    redirect: '/blog',
+    preview: false,
   }
-
-  //const pageId = getPageId(post)
-  const contentData = await getPageData(data)
-  data.content = contentData.blocks
-
-  for (let i = 0; i < contentData.blocks.length; i++) {
-    const { value } = contentData.blocks[i]
-    const { type, properties } = value
-    if (type == 'tweet') {
-      const src = properties.source[0][0]
-      // parse id from https://twitter.com/_ijjk/status/TWEET_ID format
-      const tweetId = src.split('/')[5].split('?')[0]
-      if (!tweetId) continue
-
-      try {
-        const res = await fetch(
-          `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
-        )
-        const json = await res.json()
-        properties.html = json.html.split('<script')[0]
-        data.hasTweet = true
-      } catch (_) {
-        console.log(`Failed to get tweet embed for ${src}`)
-      }
-    }
-  }
-
-  const { users } = await getNotionUsers(data.Authors || [])
-  data.Authors = Object.keys(users).map(id => users[id].full_name)
-
-  const post: post = dataToPost(data)
 
   return {
-    props: {
-      post,
-      preview: preview || false,
-    },
-    unstable_revalidate: 10,
+    props,
+    unstable_revalidate: 5
   }
 }
 
 /**
  * Dynamic Routes
+ * /blog/[slug]
  */
 export const getStaticPaths: GetStaticPaths = async () => {
   const postsTable = await getBlogIndex()
@@ -111,7 +69,7 @@ const RenderPost: React.FC<{ post: post; redirect: any; preview: any }> = ({
     // client navigation
     if (post && post.hasTweet) {
       if ((window as any)?.twttr?.widgets) {
-        ;(window as any).twttr.widgets.load()
+        ; (window as any).twttr.widgets.load()
       } else if (!document.querySelector(`script[src="${twitterSrc}"]`)) {
         const script = document.createElement('script')
         script.async = true
@@ -175,7 +133,22 @@ const TitleBlock: React.FC<{ post: post }> = ({ post }) => (
       <div className="authors">By: {post.authors.join(' ')}</div>
     )}
     {post.date && <div className="posted">Posted: {getDateStr(post.date)}</div>}
-    {post.tags && <div className="tags">Tags: {post.tags}</div>}
+    {post.tags && <div className="tags">Tags:
+      {(post.tags || []).map(tag => {
+      return (
+        <>
+          <Link href="/tags/[tag]" as={`/tags/${tag}`}>
+              <div className={blogStyles.titleContainer}>
+                <a>{tag}</a>
+                ,
+              </div>
+          </Link>
+        </>
+      )
+    })}
+    </div>
+    }
+
     <hr />
   </>
 )
@@ -237,12 +210,12 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
                     item.children,
                     item.nested.length > 0
                       ? React.createElement(
-                          components.ul || 'ul',
-                          { key: item + 'sub-list' },
-                          item.nested.map((nestedId: string) =>
-                            createEl(listMap[nestedId])
-                          )
+                        components.ul || 'ul',
+                        { key: item + 'sub-list' },
+                        item.nested.map((nestedId: string) =>
+                          createEl(listMap[nestedId])
                         )
+                      )
                       : null
                   )
                 return createEl(listMap[itemId])
@@ -264,6 +237,8 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
         }
 
         switch (type) {
+          case 'table_of_contents':
+
           case 'page':
           case 'bookmark':
             if (properties) {
@@ -275,14 +250,16 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
                 title = link.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)![1]
               }
               toRender.push(
-                <ExtLink
-                  key={id}
-                  href={link}
-                  className="dotted"
-                  style={{ color: 'inherit' }}
-                >
-                  {title}
-                </ExtLink>
+                <p>
+                  
+                  <ExtLink
+                    key={id}
+                    href={link}
+                    style={{ color: 'inherit' }}
+                  >
+                    {title}
+                  </ExtLink>
+                </p>
               )
             }
             break
@@ -311,8 +288,8 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
             // calculate percentages
             const width = block_width
               ? `${Math.round(
-                  (block_width / baseBlockWidth) * 100 * roundFactor
-                ) / roundFactor}%`
+                (block_width / baseBlockWidth) * 100 * roundFactor
+              ) / roundFactor}%`
               : block_height || '100%'
 
             const isImage = type === 'image'
@@ -320,19 +297,19 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
             const useWrapper = block_aspect_ratio && !block_height
             const childStyle: CSSProperties = useWrapper
               ? {
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                  position: 'absolute',
-                  top: 0,
-                }
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                position: 'absolute',
+                top: 0,
+              }
               : {
-                  width,
-                  border: 'none',
-                  height: 'auto',
-                  display: 'block',
-                  maxWidth: '100%',
-                }
+                width,
+                border: 'none',
+                height: 'auto',
+                display: 'block',
+                maxWidth: '100%',
+              }
 
             let child = null
 
@@ -377,8 +354,8 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
                   {child}
                 </div>
               ) : (
-                child
-              )
+                  child
+                )
             )
             break
           }

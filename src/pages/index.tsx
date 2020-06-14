@@ -4,6 +4,7 @@ import ExtLink from 'components/ext-link'
 import { GitHub } from 'components/svgs/github'
 import sharedStyles from 'styles/shared.module.css'
 
+//TODO ここもnotionかmdで管理したい
 export default () => (
   <>
     <Header titlePre="Home" />
@@ -22,7 +23,6 @@ export default () => (
         </p>
         <ExtLink
           href="https://github.com/saitoukun/my-notion-blog"
-          className="dotted"
           style={{ color: 'inherit' }}
         >
           my-notion-blog

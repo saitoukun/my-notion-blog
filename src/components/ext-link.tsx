@@ -4,6 +4,7 @@ const extLink = (props: any) => (
     <style jsx>{`
       a {
         font-size: 0.75rem;
+        border-bottom: 1px dashed black;
       }
     `}</style>
   </>

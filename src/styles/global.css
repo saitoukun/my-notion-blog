@@ -230,6 +230,10 @@ pre.dark[class*='language-'] {
   .feature h4 {
     font-size: 0.75rem;
   }
+
+  .explanation {
+    padding: 0 1rem 4rem;
+  }
 }
 
 .explanation {
@@ -285,10 +289,14 @@ h1 {
 }
 
 h2 {
-  font-weight: 300;
   font-size: 1.25rem;
   letter-spacing: -0.02rem;
-  color: var(--accents-3);
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.02rem;
 }
 
 .video {
@@ -316,7 +324,7 @@ pre {
 }
 pre :global(code) {
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touca;
 }
 
 code {
@@ -340,37 +348,4 @@ code {
   width: 130%;
   background: #fff;
   transform: skew(-20deg);
-}
-
-@media (max-width: 600px) {
-  .explanation {
-    padding: 0 1rem 4rem;
-  }
-
-  h2 {
-    font-size: 0.95rem;
-    letter-spacing: 0;
-  }
-}
-
-.dotted {
-  border-bottom: 1px dashed black;
-}
-
-footer {
-  padding: 2em 0;
-  text-align: center;
-}
-
-footer img {
-  display: block;
-  margin: 0.5rem auto;
-}
-
-footer span:nth-child(3) {
-  color: #777777;
-}
-
-footer span:nth-child(3) a {
-  color: inherit;
 }
