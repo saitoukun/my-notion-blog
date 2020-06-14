@@ -13,11 +13,12 @@ const navItems: { label: string; page?: string; link?: string }[] = [
 export default ({ titlePre = '' }) => {
   const { pathname } = useRouter()
 
-  const description = "yoppeのnotion-blogdです。"
+  const domain = "yoppe.now.sh"
+  const description = "yoppeのnotion-blog。"
   const twitterHandle = "yoppe"
   const siteName = "yoppe blog"
-  const currentURL = "yoppe.now.sh" + pathname
-  const previewImage = 'public/og-image'
+  const currentURL = domain + pathname
+  const previewImage = "https://" + domain + '/og-image.png'
   
   return (
     <header>
