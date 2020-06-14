@@ -13,15 +13,31 @@ const navItems: { label: string; page?: string; link?: string }[] = [
 export default ({ titlePre = '' }) => {
   const { pathname } = useRouter()
 
+  const description = "yoppeのnotion-blogdです。"
+  const twitterHandle = "yoppe"
+  const siteName = "yoppe blog"
+  const currentURL = "yoppe.now.sh" + pathname
+  const previewImage = 'public/og-image'
+  
   return (
     <header>
       <Head>
-        <title>{titlePre ? `${titlePre} |` : ''} My Notion Blog</title>
+        <title>{titlePre ? `${titlePre} |` : ''} yoppe blog</title>
         <meta
           name="description"
-          content="Next.js site using Notion for the blog"
+          content={description}
         />
-        <meta name="og:title" content="My Notion Blog" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary" key="twcard" />
+        <meta name="twitter:creator" content={twitterHandle} key="twhandle" />
+
+        {/* Open Graph */}
+        <meta property="og:url" content={currentURL} key="ogurl" />
+        <meta property="og:image" content={previewImage} key="ogimage" />
+        <meta property="og:site_name" content={siteName} key="ogsitename" />
+        <meta property="og:title" content={titlePre} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
       </Head>
       <ul>
         {navItems.map(({ label, page, link }) => (
