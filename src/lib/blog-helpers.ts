@@ -24,41 +24,6 @@ export const normalizeSlug = (slug: string): any => {
   return startingSlash || endingSlash ? normalizeSlug(slug) : slug
 }
 
-// 取得したデータをpost型にする
-export const dataToPosts = (postData: any[]) => {
-  const posts: post[] = postData.map(data => {
-    return dataToPost(data)
-  })
-  return posts
-}
-
-export const dataToPost = (data: any) => {
-  const id: string | null = data.id ?? null
-  const link: string | null = data.Link ?? null
-  const tags: string[] = data.Tags
-  const slug: string = data.Slug
-  const date: number = data.Date
-  const authors: string[] = data.Authors
-  const published: boolean = data.Published
-  const page: string = data.Page
-  const preview: any = null
-  const content: object[] = data.content ?? null
-
-  const post: post = {
-    id,
-    link,
-    tags,
-    slug,
-    date,
-    authors,
-    published,
-    page,
-    preview,
-    content,
-  }
-  return post
-}
-
 /**
  * 階層構造のjsonから値を取得する
  * @param obj

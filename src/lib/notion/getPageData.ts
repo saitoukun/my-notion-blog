@@ -6,18 +6,19 @@ import { post } from 'types/post'
 export default async function getPageData(data: any) {
   const pageId = getPageId(data)
   try {
-    const data = await loadPageChunk({ pageId })
-    const blocks = values(data.recordMap.block)
+    const chunk = await loadPageChunk({ pageId })
+    const blocks = values(chunk.recordMap.block)
     //先頭のblockはページの階層などを含むので除く
     if (blocks[0] && blocks[0].value.content) {
       if (data.Link) {
         //Linkの場合は階層も含んでしまう
-        blocks.splice(0, 5)
+        blocks.splice(0, 6)
       } else {
         // remove table blocks
         blocks.splice(0, 3)
       }
     }
+    
     return { blocks }
   } catch (err) {
     console.error(`Failed to load pageData for ${pageId}`, err)
