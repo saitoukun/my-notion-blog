@@ -31,6 +31,7 @@ export const getStaticProps: GetStaticProps = async () => {
 export default ({ tags }: { tags: string[] }) => {
   return (
     <>
+    　<Header titlePre="Tags" />
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
         <h1>Tags</h1>
         {tags.length === 0 && (

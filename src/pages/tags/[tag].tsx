@@ -55,7 +55,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export default ({ posts = [],tag }: { posts: post[]; tag: string}) => {
   return (
     <>
-      <Header titlePre="Blog" />
+      <Header titlePre="Tags" />
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
         <h1>{tag}</h1>
         {posts.length === 0 && (
@@ -63,7 +63,7 @@ export default ({ posts = [],tag }: { posts: post[]; tag: string}) => {
         )}
         {posts.map(post => {
           return (
-            <PostCell post={post} />
+            <PostCell post={post} key={post.slug}/>
           )
         })}
       </div>

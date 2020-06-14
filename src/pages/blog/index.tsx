@@ -46,7 +46,7 @@ export default ({ posts, preview }: { posts: post[]; preview: any }) => {
         )}
         {posts.map(post => {
           return (
-            <PostCell post={post}/>
+            <PostCell post={post} key={post.slug}/>
           )  
         })}
       </div>

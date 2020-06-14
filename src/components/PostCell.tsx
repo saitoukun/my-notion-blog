@@ -7,7 +7,7 @@ import { getBlogLink, getDateStr } from 'lib/blog-helpers'
 
 export const PostCell: React.FC<{ post: post }> = ({ post }) =>{
     return (
-        <div className={blogStyles.postPreview} key={post.slug}>
+        <div className={blogStyles.postPreview}>
           <h3>
             <Link href="/blog/[slug]" as={getBlogLink(post.slug)}>
               <div className={blogStyles.titleContainer}>
