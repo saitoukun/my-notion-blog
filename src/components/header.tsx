@@ -39,6 +39,8 @@ export default ({ titlePre = '' }) => {
         <meta property="og:site_name" content={siteName} key="ogsitename" />
         <meta property="og:title" content={titlePre} key="ogtitle" />
         <meta property="og:description" content={description} key="ogdesc" />
+
+        <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_SITE_VERIFICATION} />
       </Head>
       <ul>
         {navItems.map(({ label, page, link }) => (
