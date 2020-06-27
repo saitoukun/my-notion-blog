@@ -1,24 +1,20 @@
 import { post } from '../../types/post'
 import { getDateStr } from '../../lib/blog-helpers'
 import { getPosts } from '../../lib/notion/getPosts'
-import { NextApiRequest, NextApiResponse } from 'next';
+import { GetServerSideProps } from 'next'
 
-const location = "https://yoppe.now.sh/"
-const blogPath = "blog/"
-
-const generateSitemap = (posts: post[]): string => {
+const generateSitemap = (posts: post[], location: string): string => {
   let latestPost: number = 0;
-  let projectsXML: string = "";
+  let xml: string = "";
 
   posts.map(post => {
     const postDate: string = getDateStr(post.date);
+    const projectURL = location + post.slug;
     if (post.date > latestPost) {
       latestPost = post.date;
     }
 
-    const projectURL = location + blogPath +post.slug;
-    projectsXML += `
-      <url>
+    xml += `<url>
         <loc>${projectURL}</loc>
         <lastmod>${postDate}</lastmod>
         <priority>0.50</priority>
@@ -27,23 +23,20 @@ const generateSitemap = (posts: post[]): string => {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      <url>
-        <loc>${location}</loc>
-        <lastmod>${getDateStr(latestPost)}</lastmod>
-        <priority>1.00</priority>
-      </url>
-      <url>
-        <loc>${location + blogPath}</loc>
-        <priority>0.80</priority>
-      </url>
-      ${projectsXML}
+      ${xml}
     </urlset>`;
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export const getServerSideProps: GetServerSideProps = async ({ res } ) => {
+  const location = "https://yoppe.now.sh/blog/"
   const posts = await getPosts()
-  const sitemap: string = generateSitemap(posts)
+  const sitemap: string = generateSitemap(posts, location)
   res.setHeader('content-type', 'application/xml');
   res.write(sitemap);
   res.end();
+
+  return { props: {} }
 }
+
+const sitemap = () => null
+export default sitemap
