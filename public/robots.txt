@@ -1,0 +1,4 @@
+Sitemap: http://yoppe.now.sh/api/sitemap
+User-agent: *
+Allow: /*
+Disallow: /api/*
