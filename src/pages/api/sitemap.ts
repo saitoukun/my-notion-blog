@@ -3,6 +3,9 @@ import { getDateStr } from '../../lib/blog-helpers'
 import { getPosts } from '../../lib/notion/getPosts'
 import { NextApiRequest, NextApiResponse } from 'next';
 
+const location = "https://yoppe.now.sh/"
+const blogPath = "blog/"
+
 const generateSitemap = (posts: post[]): string => {
   let latestPost: number = 0;
   let projectsXML: string = "";
@@ -13,7 +16,7 @@ const generateSitemap = (posts: post[]): string => {
       latestPost = post.date;
     }
 
-    const projectURL = `https://yoppe.now.sh/blog/${post.slug}/`;
+    const projectURL = location + blogPath +post.slug;
     projectsXML += `
       <url>
         <loc>${projectURL}</loc>
@@ -25,12 +28,12 @@ const generateSitemap = (posts: post[]): string => {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
-        <loc>https://domain.ltd/</loc>
+        <loc>${location}</loc>
         <lastmod>${getDateStr(latestPost)}</lastmod>
         <priority>1.00</priority>
       </url>
       <url>
-        <loc>https://domain.ltd/about/</loc>
+        <loc>${location + blogPath}</loc>
         <priority>0.80</priority>
       </url>
       ${projectsXML}
