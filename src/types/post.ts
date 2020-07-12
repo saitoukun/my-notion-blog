@@ -1,3 +1,5 @@
+import { BlockMapType } from "react-notion";
+
 /**
  * example
  {  
@@ -13,15 +15,14 @@
   }
  */
 export type post = {
-  id: string | null
-  link: string | null
+  id?: string
+  link?: string
   tags: string[]
   slug: string
   date: number
   authors: string[]
   published: boolean
   page: string
-  preview: any
-  content: any | null
-  hasTweet?: boolean
+  preview?: any
+  content?: BlockMapType
 }

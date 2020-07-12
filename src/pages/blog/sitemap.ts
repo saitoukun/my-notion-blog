@@ -27,7 +27,7 @@ const generateSitemap = (posts: post[], location: string): string => {
     </urlset>`;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res } ) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const location = "https://yoppe.now.sh/blog/"
   const posts = await getPosts()
   const sitemap: string = generateSitemap(posts, location)

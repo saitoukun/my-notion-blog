@@ -1,45 +1,9 @@
-import { Twitter } from 'components/svgs/twitter'
-import { Instagram } from 'components/svgs/Instagram'
-import { textBlock } from 'lib/notion/renderers'
-
-export default () => {
-  const contacts = [
-    {
-      Comp: Twitter,
-      alt: 'twitter icon',
-      link: 'https://twitter.com/saitokun13',
-    },
-    {
-      Comp: Instagram,
-      alt: 'instagram icon',
-      link: 'https://www.instagram.com/yoppe13',
-    },
-  ]
-
-  const name = 'yoppe'
-
-  const text = [
-    '2年目のwebエンジニア。Notionを利用してwebや料理などのブログを書き始めた。趣味でiOSアプリを作っているが無限に完成しない。'
-  ]
-
+export const Footer =  () => {
   return (
     <>
       <footer>
-        <div className="explanation">
-          <h2>Profile</h2>
-          <a>
-            <img src="/profile.jpg" id="profile" alt="yoppe" />
-          </a>
-          <p>{name}</p>
-          <p id="explain">{text}</p>
-
-          {contacts.map(({ Comp, link, alt }) => {
-            return (
-              <a key={link} href={link} aria-label={alt}>
-                <Comp height={32} />
-              </a>
-            )
-          })}
+        <div>
+          <p>&copy; copyright 2020 yoppe. All rights reserved.</p>
         </div>
       </footer>
 
@@ -53,28 +17,14 @@ export default () => {
       }
       div {
         text-align: center;
-        background-color: ghostwhite;
+        background-color: gray;
       }
-
-      #explain {
-        text-align: start;
-        margin: 10px auto;
+      p {
+        color: white;
+        font-weight: 400;
+        font-size: 0.94rem;
+        line-height: 1.7;
       }
-
-      #profile {
-        width: 4rem;
-        height: 4rem;
-        border-radius: 9999px;
-      }
-
-      img {
-        margin: 0.5rem;
-      }
-
-      svg {
-        margin: 0.5rem;
-      }
-      
     `}</style>
     </>
   )
