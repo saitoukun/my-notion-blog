@@ -9,7 +9,7 @@ export const PostCell: React.FC<{ post: post }> = ({ post }) =>{
     return (
         <div className={blogStyles.postPreview}>
           <h3>
-            <Link href="/blog/[slug]" as={getBlogLink(post.slug)}>
+            <Link href="/blog/[slug]" as={`/blog/${post.slug}`}>
               <div className={blogStyles.titleContainer}>
                 {!post.published && (
                   <span className={blogStyles.draftBadge}>Draft</span>

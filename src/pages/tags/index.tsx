@@ -1,10 +1,7 @@
-import { GetStaticProps,GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import Link from 'next/link'
 import Header from 'components/header'
-
 import blogStyles from 'styles/blog.module.css'
-import sharedStyles from 'styles/shared.module.css'
-
 import { getPosts,flattenDeep } from 'lib/notion/getPosts'
 import { post } from 'types/post'
 
@@ -32,7 +29,7 @@ export default ({ tags }: { tags: string[] }) => {
   return (
     <>
     　<Header titlePre="Tags" />
-      <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
+      <div className={blogStyles.blogIndex} >
         <h1>Tags</h1>
         {tags.length === 0 && (
           <p className={blogStyles.noPosts}>There are no tagss yet</p>
@@ -51,6 +48,13 @@ export default ({ tags }: { tags: string[] }) => {
           )
         })}
       </div>
+      <style jsx>{`
+      h1,
+      h2 {
+        text-align: center;
+      }
+      `}
+      </style>
     </>
   )
 }

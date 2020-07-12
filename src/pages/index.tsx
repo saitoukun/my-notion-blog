@@ -1,33 +1,42 @@
-import Link from 'next/link'
+import { GetStaticProps } from 'next'
 import Header from 'components/header'
-import ExtLink from 'components/ext-link'
-import { GitHub } from 'components/svgs/github'
-import sharedStyles from 'styles/shared.module.css'
+import { getPageData, getPageId } from 'lib/notion/getPageData'
+import { NotionRenderer, BlockMapType } from "react-notion";
+import { BLOG_HOME_NOTION_URL, BLOG_PROFILE_NOTION_URL } from 'lib/notion/server-constants'
 
-//TODO ここもnotionかmdで管理したい
-export default () => (
+/**
+ * Static Generation with Notion
+ */
+export const getStaticProps: GetStaticProps = async () => {
+  if (!BLOG_HOME_NOTION_URL || !BLOG_PROFILE_NOTION_URL) return { props: {} }
+
+  const homePageId = getPageId(BLOG_HOME_NOTION_URL)
+  const homeBlockMap = await getPageData(homePageId)
+
+  const profilePageId = getPageId(BLOG_PROFILE_NOTION_URL)
+  const profileBlockMap = await getPageData(profilePageId)
+
+  if (!homeBlockMap || !profileBlockMap) return { props: {} }
+  
+  return {
+    props: {
+      homeBlockMap,
+      profileBlockMap,
+    },
+    unstable_revalidate: 10,
+  }
+}
+
+export default ({ homeBlockMap, profileBlockMap }: { homeBlockMap: BlockMapType, profileBlockMap: BlockMapType }) => {
+  return(
   <>
     <Header titlePre="Home" />
-    <div className={sharedStyles.layout}>
-      <img
-        src="/zeit-and-notion.png"
-        height="85"
-        width="250"
-        alt="ZEIT + Notion"
-      />
-      <h1>yoppeブログ</h1>
-      <div className="explanation">
-        <p>
-          vercelのnotion-blogを参考に、Next.jsで作ったブログです。
-          このブログは自分用にNotionで書いたメモを公開できる場として使います。
-        </p>
-        <ExtLink
-          href="https://github.com/saitoukun/my-notion-blog"
-          style={{ color: 'inherit' }}
-        >
-          my-notion-blog
-        </ExtLink>
+    {homeBlockMap && (<NotionRenderer blockMap={homeBlockMap} fullPage />)}
+    {profileBlockMap && (
+      <div className="notion-page notion-page-offset">
+      <NotionRenderer blockMap={profileBlockMap} />
       </div>
-    </div>
+    )}
   </>
-)
+  )
+}

@@ -1,7 +1,8 @@
-import { AppProps } from 'next/app'
+import { AppProps, AppContext } from 'next/app'
 import 'styles/global.css'
-import Footer from 'components/footer'
+import { Footer } from 'components/footer'
 import initFirebase from 'lib/initFirebase'
+import "react-notion/src/styles.css";
 
 initFirebase();
 
@@ -14,11 +15,25 @@ export function reportWebVitals(metric: any) {
   //console.log(metric)
 }
 
-export default ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Component {...pageProps} />
-      <Footer />
+      <Footer/>
     </>
   )
 }
+
+/** NOTE: getInitialPropsをオーバーライドできるが、推奨されてないらしい
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext);
+
+  if (!BLOG_PROFILE_NOTION_URL) return { ...appProps }
+
+  const pageId = getPageId(BLOG_PROFILE_NOTION_URL)
+  const blockMap = await getPageData(pageId)
+  return { ...appProps, blockMap }
+};
+*/
+
+export default MyApp

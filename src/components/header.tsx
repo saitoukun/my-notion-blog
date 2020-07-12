@@ -1,13 +1,11 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import ExtLink from './ext-link'
 import { useRouter } from 'next/router'
 
 const navItems: { label: string; page?: string; link?: string }[] = [
   { label: 'Home', page: '/' },
   { label: 'Blog', page: '/blog' },
   { label: 'Tags', page: '/tags' },
-  //{ label: 'Post', page: '/post' },
 ]
 
 export default ({ titlePre = '' }) => {
@@ -45,15 +43,13 @@ export default ({ titlePre = '' }) => {
       <ul>
         {navItems.map(({ label, page, link }) => (
           <li key={label}>
-            {page ? (
+            {page && (
               <Link href={page}>
                 <a className={pathname === page ? 'active' : undefined}>
                   {label}
                 </a>
               </Link>
-            ) : (
-                <ExtLink href={link}>{label}</ExtLink>
-              )}
+            )}
           </li>
         ))}
       </ul>
@@ -77,7 +73,7 @@ export default ({ titlePre = '' }) => {
       }
 
       header :global(a) {
-        color: var(--accents-3);
+        color: #888;
         font-weight: 400;
       }
 

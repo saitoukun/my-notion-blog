@@ -1,28 +1,17 @@
 import rpc, { values } from './rpc'
 import { post } from 'types/post'
+import { BlockMapType } from "react-notion";
 
 //pageIdから中のコンテンツをとる
-// TODO dataとpostをどう安全に扱うかの検討
-export default async function getPageData(data: any) {
-  const pageId = getPageId(data)
+export const getPageData = async (pageId: string): Promise<BlockMapType | undefined> => {
   try {
     const chunk = await loadPageChunk({ pageId })
-    const blocks = values(chunk.recordMap.block)
-    //先頭のblockはページの階層などを含むので除く
-    if (blocks[0] && blocks[0].value.content) {
-      if (data.Link) {
-        //Linkの場合は階層も含んでしまう
-        blocks.splice(0, 6)
-      } else {
-        // remove table blocks
-        blocks.splice(0, 3)
-      }
-    }
+    const blocks: BlockMapType = chunk.recordMap.block
     
-    return { blocks }
+    return blocks
   } catch (err) {
     console.error(`Failed to load pageData for ${pageId}`, err)
-    return { blocks: [] }
+    return undefined
   }
 }
 
@@ -43,13 +32,12 @@ export function loadPageChunk({
 }
 
 //linkがあればlinkからidを取得。なければpageのidを取得。
-function getPageId(data: any) {
-  if (data.Link) {
+export function getPageId(link: string): string {
     // urlの末32文字を次のようにハイフン区切りしたのがpageid
     // {8} - {4} - {4} - {4} - {12}
-    const len = data.Link.length
+    const len = link.length
     const idSize = 32
-    const id = data.Link.substr(len - idSize, len)
+    const id = link.substr(len - idSize, len)
     const sep = '-'
     const pageId =
       id.substr(0, 8) +
@@ -62,7 +50,4 @@ function getPageId(data: any) {
       sep +
       id.substr(20, 12)
     return pageId
-  } else {
-    return data.id
-  }
 }
