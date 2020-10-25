@@ -9,30 +9,33 @@ import { getPost } from 'lib/notion/getPosts'
 import { getBlogLink, getDateStr } from 'lib/blog-helpers'
 import { post } from 'types/post'
 
-import { NotionRenderer, BlockMapType } from "react-notion";
+import { NotionRenderer, BlockMapType } from 'react-notion'
 
 /**
  * Static Generation
  */
 export const getStaticProps: GetStaticProps = async ({ params, preview }) => {
   const slug: string = params!.slug as string
-  const post: post | null = await getPost(slug, preview)
-    .catch((error: Error) => {
+  const post: post | null = await getPost(slug, preview).catch(
+    (error: Error) => {
       console.log(error.message)
       return null
-    })
+    }
+  )
 
-  const props = post ? {
-    post,
-    preview: preview || false
-  } : {
-    redirect: '/blog',
-    preview: false,
-  }
+  const props = post
+    ? {
+        post,
+        preview: preview || false,
+      }
+    : {
+        redirect: '/blog',
+        preview: false,
+      }
 
   return {
     props,
-    unstable_revalidate: 5
+    revalidate: 5,
   }
 }
 
@@ -46,8 +49,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // for actually published ones
   return {
     paths: Object.keys(postsTable)
-      .filter(post => postsTable[post].Published)
-      .map(slug => getBlogLink(slug)),
+      .filter((post) => postsTable[post].Published)
+      .map((slug) => getBlogLink(slug)),
     fallback: true,
   }
 }
@@ -87,7 +90,7 @@ const RenderPost: React.FC<{ post: post; redirect: any; preview: any }> = ({
     <>
       <Header titlePre={post.page} />
       <TitleBlock post={post} />
-      <TocBlock post={post}/>
+      <TocBlock post={post} />
       <PageBlock post={post} />
     </>
   )
@@ -98,42 +101,41 @@ const TitleBlock: React.FC<{ post: post }> = ({ post }) => (
   <>
     <div className={blogStyles.post}>
       <h1>{post.page || ''}</h1>
-      {post.authors && <div className="authors">By: {post.authors.join(' ')}</div>}
-      {post.date && <div className="posted">Posted: {getDateStr(post.date)}</div>}
-      {post.tags && <div className="tags">Tags:
-        {post.tags.map(tag => {
-        return (
-          <>
-            <Link href="/tags/[tag]" as={`/tags/${tag}`}>
-                <div className={blogStyles.titleContainer}>
-                  <a>{tag}</a>
-                  ,
-                </div>
-            </Link>
-          </>
-        )
-        })}
+      {post.authors && (
+        <div className="authors">By: {post.authors.join(' ')}</div>
+      )}
+      {post.date && (
+        <div className="posted">Posted: {getDateStr(post.date)}</div>
+      )}
+      {post.tags && (
+        <div className="tags">
+          Tags:
+          {post.tags.map((tag) => {
+            return (
+              <>
+                <Link href="/tags/[tag]" as={`/tags/${tag}`}>
+                  <div className={blogStyles.titleContainer}>
+                    <a>{tag}</a>,
+                  </div>
+                </Link>
+              </>
+            )
+          })}
         </div>
-      }
+      )}
       <hr />
     </div>
   </>
 )
 
 //TODO Table of Contentsを作る
-const TocBlock: React.FC<{ post: post }> = ( { post }) =>{
-
-  return (
-    <>
-    </>
-  )
+const TocBlock: React.FC<{ post: post }> = ({ post }) => {
+  return <></>
 }
 
 const PageBlock: React.FC<{ post: post }> = ({ post }) => {
-  if(!post.content) {
-    return (
-        <p>This post has no content</p>
-    )
+  if (!post.content) {
+    return <p>This post has no content</p>
   }
 
   const blockMap: BlockMapType = post.content
@@ -141,6 +143,5 @@ const PageBlock: React.FC<{ post: post }> = ({ post }) => {
     <div className="notion-page notion-page-offset">
       <NotionRenderer blockMap={blockMap} />
     </div>
-  );
-
+  )
 }
