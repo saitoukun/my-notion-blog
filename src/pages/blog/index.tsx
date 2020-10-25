@@ -3,8 +3,8 @@ import Header from 'components/header'
 import blogStyles from 'styles/blog.module.css'
 import { getPosts } from 'lib/notion/getPosts'
 import { post } from 'types/post'
-import { PostCell } from 'components/PostCell' 
-import { BlockMapType } from "react-notion";
+import { PostCell } from 'components/PostCell'
+import { BlockMapType } from 'react-notion'
 
 /**
  * Static Generation
@@ -16,11 +16,11 @@ export const getStaticProps: GetStaticProps = async ({ preview }) => {
     props: {
       posts,
     },
-    unstable_revalidate: 10,
+    revalidate: 10,
   }
 }
 
-export default ({ posts }: { posts: post[] }) => {
+const index = ({ posts }: { posts: post[] }) => {
   return (
     <>
       <Header titlePre="Blog" />
@@ -29,34 +29,33 @@ export default ({ posts }: { posts: post[] }) => {
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
-        {posts.map(post => {
-          return (
-            <PostCell post={post} key={post.slug}/>
-          )  
+        {posts.map((post) => {
+          return <PostCell post={post} key={post.slug} />
         })}
       </div>
 
       <style jsx global>{`
-      .layout img {
-        margin: auto;
-        max-width: 98%;
-        display: block;
-        height: auto;
-      }
-      
-      .layout h1,
-      .layout h2 {
-        text-align: center;
-      }
-      
-      .blogIndex {
-        padding: 0 5%;
-      }
-      
-      .blogIndex h1 {
-        margin-bottom: 50px;
-      }
+        .layout img {
+          margin: auto;
+          max-width: 98%;
+          display: block;
+          height: auto;
+        }
+
+        .layout h1,
+        .layout h2 {
+          text-align: center;
+        }
+
+        .blogIndex {
+          padding: 0 5%;
+        }
+
+        .blogIndex h1 {
+          margin-bottom: 50px;
+        }
       `}</style>
     </>
   )
 }
+export default index

@@ -1,21 +1,22 @@
 # My Notion Blog
 
-Next.jsのSSR・SSGを利用したでブログ
-Notionで書いたPageを元にブログの記事とする
+Next.js の SSR・SSG を利用したでブログ
+Notion で書いた Page を元にブログの記事とする
 
 [notion-blog](https://github.com/ijjk/notion-blog) を参考にアイデアを真似しました。
 [react-notion](https://github.com/splitbee/react-notion) を使ってコードを整理しました。
 
-## 機能 
-- notionで書いた記事をブログの記事として流用できる。
-- "Link"に貼った自分のNotionのリンクを参照する機能
+## 機能
+
+- notion で書いた記事をブログの記事として流用できる。
+- "Link"に貼った自分の Notion のリンクを参照する機能
 - 記事ごとのタグづけ
-- sitemapを生成するAPIを実装
+- sitemap を生成する API を実装
 - firebase 追加によるアナリティクスが可能
 - "strict": true へ変更
-- Next.js 9.4に更新ずみ
+- Next.js 9.4 に更新ずみ
 
-個人のブログだが機能追加や改修ごとの差分がわかりやすいよう、PullRequestをマージしていくことで改修する。
+個人のブログだが機能追加や改修ごとの差分がわかりやすいよう、PullRequest をマージしていくことで改修する。
 
 ## 環境変数
 
@@ -40,15 +41,16 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=<your-measurement-id>
 NEXT_PUBLIC_SITE_VERIFICATION=<your-verification-code>
 ```
 
-NOTION_TOKEN,BLOG_INDEX_IDはnotionのプライベートapiから値を取得するために使う。
-BLOG_HOME_NOTION_URL, BLOG_PROFILE_NOTION_URLはコンポーネントとして使うnotion pageのurl
-"NEXT_PUBLIC_FIREBASE_"から始まる環境変数は、firebaseをプロジェクトに追加するために必要。
+NOTION*TOKEN,BLOG_INDEX_ID は notion のプライベート api から値を取得するために使う。
+BLOG_HOME_NOTION_URL, BLOG_PROFILE_NOTION_URL はコンポーネントとして使う notion page の url
+"NEXT_PUBLIC_FIREBASE*"から始まる環境変数は、firebase をプロジェクトに追加するために必要。
 
-"NEXT_PUBLIC_"のprefixはがついたものは、バンドルに含まれる。
+"NEXT*PUBLIC*"の prefix はがついたものは、バンドルに含まれる。
 (https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables)
 
-### now secretsへの追加
-nowでデプロイするため、now.jsonの記述が環境変数と対応する。
+### now secrets への追加
+
+now でデプロイするため、now.json の記述が環境変数と対応する。
 例えば"NOTION_TOKEN"は、"notion-token"としている。
 これを次のようなコマンドで追加する必要がある。
 
@@ -66,7 +68,7 @@ now secrets rm notion-token
 now secrets add notion-token <token>
 ```
 
-## Creating Your Pages Table
+## Creating Your ｓ Pages Table
 
 ### Manually Creating the Table
 
@@ -75,6 +77,7 @@ now secrets add notion-token <token>
 3. Add the below fields to the table
 
 #### properties
+
 The table should have the following properties:
 
 - `Page`: this the blog post's page
@@ -86,7 +89,7 @@ The table should have the following properties:
 - `Link`: If you put your own Notion Page link here, the page reference will take precedence
 
 Example
-  ![Example Blog Posts Table](./public/table-view.png)
+![Example Blog Posts Table](./public/table-view.png)
 
 ## Running Locally
 
