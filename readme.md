@@ -1,6 +1,6 @@
 # My Notion Blog
 
-Next.js の SSR・SSG を利用したでブログ
+Next.js の SSR・SSG を利用したブログ
 Notion で書いた Page を元にブログの記事とする
 
 [notion-blog](https://github.com/ijjk/notion-blog) を参考にアイデアを真似しました。
