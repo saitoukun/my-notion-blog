@@ -68,7 +68,7 @@ now secrets rm notion-token
 now secrets add notion-token <token>
 ```
 
-## Creating Your ｓ Pages Table
+## Creating Your Pages Table
 
 ### Manually Creating the Table
 
