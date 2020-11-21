@@ -22,7 +22,6 @@ export const getPosts = async (): Promise<post[]> => {
      */
     //slugをキーにしたobject
     const postsTable = await getBlogIndex()
-
     const authorsToGet: Set<string> = new Set()
     const postsData: any[] = Object.keys(postsTable)
         .map(slug => {
@@ -38,7 +37,6 @@ export const getPosts = async (): Promise<post[]> => {
             return post
         })
         .filter(Boolean)
-
     const { users } = await getNotionUsers([...authorsToGet])
 
     postsData.map(post => {
