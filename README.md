@@ -55,7 +55,7 @@ now でデプロイするため、now.json の記述が環境変数と対応す�
 これを次のようなコマンドで追加する必要がある。
 
 ```
-now secrets add notion-token <token>
+vercel secrets add notion-token <token>
 ```
 
 ### When token is changed
@@ -63,9 +63,9 @@ now secrets add notion-token <token>
 Procedure when the token of notion changes
 
 ```
-now secrets ls
-now secrets rm notion-token
-now secrets add notion-token <token>
+vercel secrets ls
+vercel secrets rm notion-token
+vercel secrets add notion-token <token>
 ```
 
 ## Creating Your Pages Table
@@ -93,7 +93,7 @@ Example
 
 ## Running Locally
 
-1. Install dependencies `yarn`
+1. Install dependencies `npm install`
 2. Create and describe an `.env`
-3. Run next in development mode `yarn dev`
-4. Build and run in production mode `yarn build && yarn start`
+3. Run next in development mode `npm run dev`
+4. Build and run in production mode `npm run build && npm run start`
