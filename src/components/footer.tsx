@@ -3,7 +3,7 @@ export const Footer =  () => {
     <>
       <footer>
         <div>
-          <p>&copy; copyright 2020 yoppe. All rights reserved.</p>
+          <p>&copy; copyright 2021 yoppe. All rights reserved.</p>
         </div>
       </footer>
 

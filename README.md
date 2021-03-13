@@ -50,7 +50,7 @@ BLOG_HOME_NOTION_URL, BLOG_PROFILE_NOTION_URL はコンポーネントとして�
 
 ### now secrets への追加
 
-now でデプロイするため、now.json の記述が環境変数と対応する。
+vercel でデプロイするため、now.json の記述が環境変数と対応する。
 例えば"NOTION_TOKEN"は、"notion-token"としている。
 これを次のようなコマンドで追加する必要がある。
 
