@@ -54,12 +54,7 @@ vercel でデプロイするため、now.json の記述が環境変数と対応�
 例えば"NOTION_TOKEN"は、"notion-token"としている。
 これを次のようなコマンドで追加する必要がある。
 
-```
-vercel secrets add notion-token <token>
-```
-
-### When token is changed
-
+When token is changed
 Procedure when the token of notion changes
 
 ```
