@@ -13,7 +13,7 @@ const firebaseConfig = {
 }
 
 const initFirebase = () => {
-  if (typeof window !== 'undefined' && !firebase.apps.length) {
+  if (typeof window !== 'undefined' && !firebase.apps.length && process.env.NODE_ENV == 'production') {
     firebase.initializeApp(firebaseConfig)
     firebase.analytics()
   }
