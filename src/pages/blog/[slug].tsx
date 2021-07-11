@@ -51,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: Object.keys(postsTable)
       .filter((post) => postsTable[post].Published)
       .map((slug) => getBlogLink(slug)),
-    fallback: true,
+    fallback: false,
   }
 }
 
