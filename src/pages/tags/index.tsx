@@ -20,8 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       tags: uniqTags,
-    },
-    revalidate: 10,
+    }
   }
 }
 

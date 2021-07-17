@@ -34,8 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params, preview }) => {
       }
 
   return {
-    props,
-    revalidate: 5,
+    props
   }
 }
 

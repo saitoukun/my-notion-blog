@@ -27,7 +27,6 @@ export const getStaticProps: GetStaticProps = async () => {
       homeBlockMap,
       profileBlockMap,
     },
-    revalidate: 10,
   }
 }
 

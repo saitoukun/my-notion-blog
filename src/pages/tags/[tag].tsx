@@ -18,8 +18,7 @@ export const getStaticProps: GetStaticProps = async ({ params, preview }) => {
     props: {
       posts: tagPosts,
       tag,
-    },
-    revalidate: 10,
+    }
   }
 }
 
