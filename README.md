@@ -39,13 +39,15 @@ NEXT_PUBLIC_FIREBASE_APP_ID=<your-app-id>
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=<your-measurement-id>
 
 NEXT_PUBLIC_SITE_VERIFICATION=<your-verification-code>
+
+NEXT_PUBLIC_ADSENCE_CLIENT_ID=<your-client-id>
 ```
 
-NOTION*TOKEN,BLOG_INDEX_ID は notion のプライベート api から値を取得するために使う。
+NOTION_TOKEN,BLOG_INDEX_ID は notion のプライベート api から値を取得するために使う。
 BLOG_HOME_NOTION_URL, BLOG_PROFILE_NOTION_URL はコンポーネントとして使う notion page の url
-"NEXT_PUBLIC_FIREBASE*"から始まる環境変数は、firebase をプロジェクトに追加するために必要。
+"NEXT_PUBLIC_FIREBASE"から始まる環境変数は、firebase をプロジェクトに追加するために必要。
 
-"NEXT*PUBLIC*"の prefix はがついたものは、バンドルに含まれる。
+"NEXT_PUBLIC"の prefix はがついたものは、バンドルに含まれる。
 (https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables)
 
 ### now secrets への追加
