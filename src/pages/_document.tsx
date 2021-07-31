@@ -4,7 +4,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+        <script data-ad-client={process.env.NEXT_PUBLIC_ADSENCE_CLIENT_ID} async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        </Head>
         <body>
           <Main />
           <NextScript />
