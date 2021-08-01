@@ -7,17 +7,15 @@ import { NotionRenderer, BlockMapType } from 'react-notion'
  * Static Generation with Notion
  */
 export const getStaticProps: GetStaticProps = async () => {
-  const NEXT_PUBLIC_BLOG_HOME_NOTION_URL =
-    process.env.NEXT_PUBLIC_BLOG_HOME_NOTION_URL
-  const NEXT_PUBLIC_BLOG_PROFILE_NOTION_URL =
-    process.env.NEXT_PUBLIC_BLOG_PROFILE_NOTION_URL
-  if (!NEXT_PUBLIC_BLOG_HOME_NOTION_URL || !NEXT_PUBLIC_BLOG_PROFILE_NOTION_URL)
-    return { props: {} }
 
-  const homePageId = getPageId(NEXT_PUBLIC_BLOG_HOME_NOTION_URL)
+  if (!process.env.NEXT_PUBLIC_BLOG_HOME_NOTION_URL || !process.env.NEXT_PUBLIC_BLOG_PROFILE_NOTION_URL){
+    return { props: {} }
+  }
+
+  const homePageId = getPageId(process.env.NEXT_PUBLIC_BLOG_HOME_NOTION_URL)
   const homeBlockMap = await getPageData(homePageId)
 
-  const profilePageId = getPageId(NEXT_PUBLIC_BLOG_PROFILE_NOTION_URL)
+  const profilePageId = getPageId(process.env.NEXT_PUBLIC_BLOG_PROFILE_NOTION_URL)
   const profileBlockMap = await getPageData(profilePageId)
 
   if (!homeBlockMap || !profileBlockMap) return { props: {} }

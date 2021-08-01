@@ -24,16 +24,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-/** NOTE: getInitialPropsをオーバーライドできるが、推奨されてないらしい
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext);
-
-  if (!BLOG_PROFILE_NOTION_URL) return { ...appProps }
-
-  const pageId = getPageId(BLOG_PROFILE_NOTION_URL)
-  const blockMap = await getPageData(pageId)
-  return { ...appProps, blockMap }
-};
-*/
-
 export default MyApp

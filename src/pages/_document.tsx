@@ -5,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-        <script data-ad-client={process.env.NEXT_PUBLIC_ADSENCE_CLIENT_ID} async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script async src={"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + process.env.NEXT_PUBLIC_ADSENCE_CLIENT_ID} crossorigin="anonymous"></script>
         </Head>
         <body>
           <Main />
