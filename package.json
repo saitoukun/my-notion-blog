@@ -1,6 +1,9 @@
 {
   "name": "notion-blog",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=13"
+  },
   "scripts": {
     "dev": "next dev",
     "start": "next start",
